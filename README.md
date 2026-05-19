@@ -329,16 +329,26 @@ local function loadButtonPositions()
 end
 
 -- MAIN WINDOW
-local WIN_W = 340; local WIN_H = 440; local TITLE_H = 36; local TAB_H = 32
+local WIN_W = 285
+local WIN_H = 375
+local TITLE_H = 30
+local TAB_H = 26
+
 local mainOuter = Instance.new("Frame", gui)
 mainOuter.Name = "MainOuter"
 mainOuter.Size = UDim2.new(0, WIN_W, 0, WIN_H)
 mainOuter.Position = UDim2.new(0.5, -WIN_W/2, 0.5, -WIN_H/2)
+
 mainOuter.BackgroundTransparency = 1
 mainOuter.BorderSizePixel = 0
 mainOuter.ClipsDescendants = true
-mkCorner(mainOuter, 8)
+
+-- MAS COMPACT CORNERS
+mkCorner(mainOuter, 6)
+
+-- THINNER BORDER
 mkStroke(mainOuter, C.winBorder, 1)
+
 makeDraggable(mainOuter)
 
 local bgImg = Instance.new("ImageLabel", mainOuter)
@@ -1177,28 +1187,43 @@ local function makeStatMini(xOff, w, icon)
 	vL.Font = Enum.Font.GothamBlack; vL.TextSize = 9; vL.TextXAlignment = Enum.TextXAlignment.Left
 	return vL
 end
-local fpsVal = makeStatMini(10, 55, "FPS")
-local pingVal = makeStatMini(68, 62, "PING")
+local fpsVal = makeStatMini(8, 48, "FPS")
+local pingVal = makeStatMini(58, 48, "PING")
+
 local radWrap = Instance.new("Frame", infoBar)
-radWrap.Size = UDim2.new(0, 68, 0, 13); radWrap.Position = UDim2.new(1, -72, 0, 36)
+radWrap.Size = UDim2.new(0, 55, 0, 11)
+radWrap.Position = UDim2.new(1, -60, 0, 34)
 radWrap.BackgroundTransparency = 1
+
 local radIco = Instance.new("TextLabel", radWrap)
-radIco.Size = UDim2.new(0, 26, 1, 0); radIco.BackgroundTransparency = 1
-radIco.Text = "RAD"; radIco.TextColor3 = C.infoTxt; radIco.Font = Enum.Font.GothamBold; radIco.TextSize = 9
+radIco.Size = UDim2.new(0, 22, 1, 0)
+radIco.BackgroundTransparency = 1
+radIco.Text = "RAD"
+radIco.TextColor3 = C.infoTxt
+radIco.Font = Enum.Font.GothamBold
+radIco.TextSize = 8
+
 radTB = Instance.new("TextBox", radWrap)
-radTB.Size = UDim2.new(0, 40, 1, 0); radTB.Position = UDim2.new(0, 26, 0, 0)
-radTB.BackgroundTransparency = 1; radTB.Text = tostring(Steal.StealRadius); radTB.TextColor3 = C.infoVal
-radTB.Font = Enum.Font.GothamBlack; radTB.TextSize = 9; radTB.ClearTextOnFocus = false; radTB.ZIndex = 10
+radTB.Size = UDim2.new(0, 32, 1, 0)
+radTB.Position = UDim2.new(0, 22, 0, 0)
+
+radTB.BackgroundTransparency = 1
+radTB.Text = tostring(Steal.StealRadius)
+radTB.TextColor3 = C.infoVal
+radTB.Font = Enum.Font.GothamBlack
+radTB.TextSize = 8
+radTB.ClearTextOnFocus = false
+radTB.ZIndex = 10
+
 radTB.FocusLost:Connect(function()
 	local n = tonumber(radTB.Text)
+
 	if n and n >= 5 and n <= 300 then
 		Steal.StealRadius = math.floor(n)
-		Steal.cachedPrompts = {}; Steal.promptCacheTime = 0
+		Steal.cachedPrompts = {}
+		Steal.promptCacheTime = 0
 	end
-	radTB.Text = tostring(Steal.StealRadius)
-	if stealRadBox and not stealRadBox:IsFocused() then stealRadBox.Text = tostring(Steal.StealRadius) end
 end)
-
 do
 	local lastT = tick(); local fc = 0
 	RunService.RenderStepped:Connect(function()
@@ -1230,7 +1255,7 @@ end
 
 -- BUTTON STYLE
 local BTN_W = 105
-local BTN_H = 50
+local BTN_H = 48
 
 -- STACK BUTTONS
 for i, def in ipairs(stackDefs) do
@@ -2068,11 +2093,47 @@ RunService.Stepped:Connect(function()
 		end
 	end
 end)
+local UIS = game:GetService("UserInputService")
+local Players = game:GetService("Players")
 
-UIS.JumpRequest:Connect(function()
-	if not State.infJumpEnabled then return end
-	local c=LP.Character; if not c then return end; local root=c:FindFirstChild("HumanoidRootPart")
-	if root then root.Velocity=Vector3.new(root.Velocity.X,55,root.Velocity.Z) end
+local LP = Players.LocalPlayer
+local holding = false
+
+State = State or {}
+State.infJumpEnabled = true
+
+UIS.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	
+	if input.KeyCode == Enum.KeyCode.Space then
+		holding = true
+		
+		while holding do
+			if State.infJumpEnabled then
+				local c = LP.Character
+				
+				if c then
+					local root = c:FindFirstChild("HumanoidRootPart")
+					
+					if root then
+						root.Velocity = Vector3.new(
+							root.Velocity.X,
+							55,
+							root.Velocity.Z
+						)
+					end
+				end
+			end
+			
+			task.wait(0.1)
+		end
+	end
+end)
+
+UIS.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Space then
+		holding = false
+	end
 end)
 
 RunService.RenderStepped:Connect(function()
