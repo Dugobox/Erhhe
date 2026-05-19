@@ -1,5 +1,5 @@
 -- ============================================================
--- kkla HUB v5.2 - DARK GRAY GLOW THEME (NO OPIUM) - ROUNDED BUTTONS + LOCK UI
+-- kkla HUB v5.2 - PURE RED (NO OPIUM) - ROUNDED BUTTONS + LOCK UI
 -- ============================================================
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -9,31 +9,14 @@ local HttpService = game:GetService("HttpService")
 local Stats = game:GetService("Stats")
 local LP = Players.LocalPlayer
 
--- NO LOGO IMAGE (Dark Gray Glow Logo)
+-- NO LOGO IMAGE (pure red square)
 local function createRedLogo(parent)
 	local frame = Instance.new("Frame", parent)
 	frame.Size = UDim2.new(0, 22, 0, 22)
-
-	frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+	frame.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 	frame.BorderSizePixel = 0
-
 	local corner = Instance.new("UICorner", frame)
-	corner.CornerRadius = UDim.new(0, 7)
-
-	local stroke = Instance.new("UIStroke", frame)
-	stroke.Color = Color3.fromRGB(220,220,220)
-	stroke.Thickness = 1.4
-	stroke.Transparency = 0.2
-
-	local glow = Instance.new("ImageLabel", frame)
-	glow.BackgroundTransparency = 1
-	glow.Image = "rbxassetid://5028857084"
-	glow.ImageColor3 = Color3.fromRGB(255,255,255)
-	glow.ImageTransparency = 0.82
-	glow.Size = UDim2.new(1,14,1,14)
-	glow.Position = UDim2.new(0,-7,0,-7)
-	glow.ZIndex = 0
-
+	corner.CornerRadius = UDim.new(0, 6)
 	return frame
 end
 
@@ -152,83 +135,71 @@ local stackBtnRefs={}; local stackWrappers={}; local keybindBtnRefs={}
 local normalBox,carryBox,laggerBox,uiScaleBox,stealRadBox,lockBtn
 local setHideButtonsToggle
 local radTB
+
 -- ============================================================
--- DARK GRAY GLOW THEME
+-- PURE RED COLORS (ONLY REDS)
 -- ============================================================
 local C = {
-	winBg = Color3.fromRGB(15,15,15),
-	winBorder = Color3.fromRGB(90,90,90),
-
-	topBg = Color3.fromRGB(20,20,20),
-	topTitle = Color3.fromRGB(255,255,255),
-	topSub = Color3.fromRGB(140,140,140),
-	topBtn = Color3.fromRGB(45,45,45),
-	topBtnHov = Color3.fromRGB(80,80,80),
-	topDivider = Color3.fromRGB(60,60,60),
-
-	tabBarBg = Color3.fromRGB(18,18,18),
-	tabBarDiv = Color3.fromRGB(50,50,50),
-	tabIdle = Color3.fromRGB(130,130,130),
-	tabActive = Color3.fromRGB(255,255,255),
-	tabActiveBg = Color3.fromRGB(35,35,35),
-	tabUnderline = Color3.fromRGB(220,220,220),
-
-	sectionTxt = Color3.fromRGB(210,210,210),
-	sectionDiv = Color3.fromRGB(55,55,55),
-
-	rowBg = Color3.fromRGB(25,25,25),
-	rowBorder = Color3.fromRGB(65,65,65),
-	rowLabel = Color3.fromRGB(240,240,240),
-	rowSub = Color3.fromRGB(140,140,140),
-	rowValue = Color3.fromRGB(255,255,255),
-	rowHov = Color3.fromRGB(40,40,40),
-
-	inputBg = Color3.fromRGB(28,28,28),
-	inputBorder = Color3.fromRGB(80,80,80),
-	inputFocus = Color3.fromRGB(200,200,200),
-	inputTxt = Color3.fromRGB(255,255,255),
-
-	pillOff = Color3.fromRGB(45,45,45),
-	pillOn = Color3.fromRGB(180,180,180),
-	dotOff = Color3.fromRGB(80,80,80),
-	dotOn = Color3.fromRGB(255,255,255),
-	pillBorder = Color3.fromRGB(90,90,90),
-
-	modeBtnBg = Color3.fromRGB(30,30,30),
-	modeBtnBrd = Color3.fromRGB(85,85,85),
-	modeBtnTxt = Color3.fromRGB(210,210,210),
-	modeBtnActBg = Color3.fromRGB(70,70,70),
-	modeBtnActTx = Color3.fromRGB(255,255,255),
-
-	chipBg = Color3.fromRGB(32,32,32),
-	chipBorder = Color3.fromRGB(90,90,90),
-	chipTxt = Color3.fromRGB(230,230,230),
-
-	btnBg = Color3.fromRGB(35,35,35),
-	btnBorder = Color3.fromRGB(120,120,120),
-	btnTxt = Color3.fromRGB(255,255,255),
-	btnHov = Color3.fromRGB(60,60,60),
-
-	stackBg = Color3.fromRGB(24,24,24),
-	stackBrd = Color3.fromRGB(70,70,70),
-	stackTxt = Color3.fromRGB(220,220,220),
-	stackActBg = Color3.fromRGB(50,50,50),
-	stackActBrd = Color3.fromRGB(220,220,220),
-	stackActTxt = Color3.fromRGB(255,255,255),
-	stackDot = Color3.fromRGB(100,100,100),
-	stackDotOn = Color3.fromRGB(255,255,255),
-
-	infoBg = Color3.fromRGB(20,20,20),
-	infoBrd = Color3.fromRGB(70,70,70),
-	infoTxt = Color3.fromRGB(210,210,210),
-	infoVal = Color3.fromRGB(255,255,255),
-	infoFill = Color3.fromRGB(220,220,220),
-
-	accent = Color3.fromRGB(255,255,255),
-	accentDim = Color3.fromRGB(120,120,120),
-
-	lockOn = Color3.fromRGB(255,255,255),
-	divider = Color3.fromRGB(60,60,60),
+	winBg = Color3.fromRGB(20, 0, 0),
+	winBorder = Color3.fromRGB(100, 0, 0),
+	topBg = Color3.fromRGB(20, 0, 0),
+	topTitle = Color3.fromRGB(255, 50, 50),
+	topSub = Color3.fromRGB(150, 20, 20),
+	topBtn = Color3.fromRGB(200, 30, 30),
+	topBtnHov = Color3.fromRGB(255, 40, 40),
+	topDivider = Color3.fromRGB(80, 0, 0),
+	tabBarBg = Color3.fromRGB(25, 0, 0),
+	tabBarDiv = Color3.fromRGB(80, 0, 0),
+	tabIdle = Color3.fromRGB(150, 30, 30),
+	tabActive = Color3.fromRGB(255, 70, 70),
+	tabActiveBg = Color3.fromRGB(35, 0, 0),
+	tabUnderline= Color3.fromRGB(200, 0, 0),
+	sectionTxt = Color3.fromRGB(180, 40, 40),
+	sectionDiv = Color3.fromRGB(70, 0, 0),
+	rowBg = Color3.fromRGB(0, 0, 0),
+	rowBorder = Color3.fromRGB(70, 0, 0),
+	rowLabel = Color3.fromRGB(255, 80, 80),
+	rowSub = Color3.fromRGB(180, 40, 40),
+	rowValue = Color3.fromRGB(220, 60, 60),
+	rowHov = Color3.fromRGB(40, 0, 0),
+	inputBg = Color3.fromRGB(30, 0, 0),
+	inputBorder = Color3.fromRGB(90, 0, 0),
+	inputFocus = Color3.fromRGB(180, 20, 20),
+	inputTxt = Color3.fromRGB(255, 100, 100),
+	pillOff = Color3.fromRGB(50, 0, 0),
+	pillOn = Color3.fromRGB(120, 0, 0),
+	dotOff = Color3.fromRGB(80, 0, 0),
+	dotOn = Color3.fromRGB(220, 50, 50),
+	pillBorder = Color3.fromRGB(90, 0, 0),
+	modeBtnBg = Color3.fromRGB(30, 0, 0),
+	modeBtnBrd = Color3.fromRGB(90, 0, 0),
+	modeBtnTxt = Color3.fromRGB(180, 50, 50),
+	modeBtnActBg= Color3.fromRGB(100, 0, 0),
+	modeBtnActTx= Color3.fromRGB(255, 100, 100),
+	chipBg = Color3.fromRGB(30, 0, 0),
+	chipBorder = Color3.fromRGB(90, 0, 0),
+	chipTxt = Color3.fromRGB(200, 60, 60),
+	btnBg = Color3.fromRGB(40, 0, 0),
+	btnBorder = Color3.fromRGB(100, 0, 0),
+	btnTxt = Color3.fromRGB(255, 80, 80),
+	btnHov = Color3.fromRGB(70, 0, 0),
+	stackBg = Color3.fromRGB(25, 0, 0),
+	stackBrd = Color3.fromRGB(80, 0, 0),
+	stackTxt = Color3.fromRGB(200, 60, 60),
+	stackActBg = Color3.fromRGB(60, 0, 0),
+	stackActBrd = Color3.fromRGB(200, 0, 0),
+	stackActTxt = Color3.fromRGB(255, 120, 120),
+	stackDot = Color3.fromRGB(100, 0, 0),
+	stackDotOn = Color3.fromRGB(255, 50, 50),
+	infoBg = Color3.fromRGB(18, 0, 0),
+	infoBrd = Color3.fromRGB(70, 0, 0),
+	infoTxt = Color3.fromRGB(180, 40, 40),
+	infoVal = Color3.fromRGB(255, 80, 80),
+	infoFill = Color3.fromRGB(200, 0, 0),
+	accent = Color3.fromRGB(200, 0, 0),
+	accentDim = Color3.fromRGB(120, 0, 0),
+	lockOn = Color3.fromRGB(255, 80, 80),
+	divider = Color3.fromRGB(70, 0, 0),
 }
 
 -- PRC PERFORMANCE MODES
@@ -1077,54 +1048,20 @@ for _, n in ipairs(TABS) do
 	t.underline.Visible = active
 	if tabPages[n] then tabPages[n].Visible = active end
 end
--- FLOATING BUTTON (Dark Gray Glow)
+-- FLOATING BUTTON (red)
 local vBtnFrame = Instance.new("Frame", gui)
 vBtnFrame.Name = "SOURCEHUBVBtn"
-vBtnFrame.Size = UDim2.new(0, 40, 0, 40)
+vBtnFrame.Size = UDim2.new(0, 36, 0, 36)
 
 local HttpService = game:GetService("HttpService")
 local vPosFile = "SOURCEHUBVBtn.json"
 
--- DEFAULT POSITION
+-- DEFAULT POSITION (first time lang)
 if not isfile(vPosFile) then
-	vBtnFrame.Position = UDim2.new(1, -52, 0, 16)
+	vBtnFrame.Position = UDim2.new(1, -48, 0, 14)
 end
 
-vBtnFrame.BackgroundColor3 = Color3.fromRGB(28,28,28)
-vBtnFrame.BorderSizePixel = 0
-
--- ROUND
-local corner = Instance.new("UICorner", vBtnFrame)
-corner.CornerRadius = UDim.new(1,0)
-
--- OUTLINE
-local stroke = Instance.new("UIStroke", vBtnFrame)
-stroke.Color = Color3.fromRGB(200,200,200)
-stroke.Thickness = 1.6
-stroke.Transparency = 0.15
-
--- GLOW
-local glow = Instance.new("ImageLabel", vBtnFrame)
-glow.Name = "Glow"
-glow.Parent = vBtnFrame
-glow.BackgroundTransparency = 1
-glow.Image = "rbxassetid://5028857084"
-glow.ImageColor3 = Color3.fromRGB(255,255,255)
-glow.ImageTransparency = 0.8
-glow.Size = UDim2.new(1,18,1,18)
-glow.Position = UDim2.new(0,-9,0,-9)
-glow.ZIndex = 0
-
--- SHADOW
-local shadow = Instance.new("ImageLabel", vBtnFrame)
-shadow.Name = "Shadow"
-shadow.Parent = vBtnFrame
-shadow.BackgroundTransparency = 1
-shadow.Image = "rbxassetid://1316045217"
-shadow.ImageTransparency = 0.55
-shadow.Size = UDim2.new(1,24,1,24)
-shadow.Position = UDim2.new(0,-12,0,-10)
-shadow.ZIndex = -1
+-- LOAD SAVED POSITION
 if isfile(vPosFile) then
 	local data = HttpService:JSONDecode(readfile(vPosFile))
 
@@ -1200,315 +1137,302 @@ UIS.InputChanged:Connect(function(inp)
 		vBtnFrame.Position=UDim2.new(vStartPos.X.Scale,vStartPos.X.Offset+dx,vStartPos.Y.Scale,vStartPos.Y.Offset+dy)
 	end
 end)
--- INFO BAR (dark gray glowing)
+
+-- INFO BAR (red)
 local infoBar = Instance.new("Frame", gui)
 infoBar.Size = UDim2.new(0, 200, 0, 54)
 infoBar.Position = UDim2.new(0.5, -100, 1, -68)
-infoBar.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
-infoBar.BackgroundTransparency = 0
-infoBar.BorderSizePixel = 0
-infoBar.Active = true
-
-mkCorner(infoBar, 8)
+infoBar.BackgroundColor3 = C.infoBg
+infoBar.BackgroundTransparency = 0; infoBar.BorderSizePixel = 0; infoBar.Active = true
+mkCorner(infoBar, 8); mkStroke(infoBar, C.infoBrd, 1)
 makeDraggable(infoBar)
-
--- Gradient
-local grad = Instance.new("UIGradient", infoBar)
-grad.Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(48,48,48)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(22,22,22))
-}
-grad.Rotation = 90
-
--- Glow border
-local stroke = Instance.new("UIStroke", infoBar)
-stroke.Color = Color3.fromRGB(120,120,120)
-stroke.Thickness = 1.5
-stroke.Transparency = 0.15
-
--- Outer glow
-local glow = Instance.new("ImageLabel", infoBar)
-glow.Name = "Glow"
-glow.BackgroundTransparency = 1
-glow.ZIndex = 0
-glow.Size = UDim2.new(1, 18, 1, 18)
-glow.Position = UDim2.new(0, -9, 0, -9)
-glow.Image = "rbxassetid://4996891970"
-glow.ImageColor3 = Color3.fromRGB(90,90,90)
-glow.ImageTransparency = 0.55
-glow.ScaleType = Enum.ScaleType.Slice
-glow.SliceCenter = Rect.new(20,20,280,280)
-
 local ibAcc = Instance.new("Frame", infoBar)
-ibAcc.Size = UDim2.new(0, 3, 0.6, 0)
-ibAcc.Position = UDim2.new(0, 0, 0.2, 0)
-ibAcc.BackgroundColor3 = Color3.fromRGB(180,180,180)
-ibAcc.BorderSizePixel = 0
-mkCorner(ibAcc, 2)
-
+ibAcc.Size = UDim2.new(0, 3, 0.6, 0); ibAcc.Position = UDim2.new(0, 0, 0.2, 0)
+ibAcc.BackgroundColor3 = C.accent; ibAcc.BorderSizePixel = 0; mkCorner(ibAcc, 2)
 local stealLbl = Instance.new("TextLabel", infoBar)
-stealLbl.Size = UDim2.new(0, 95, 0, 13)
-stealLbl.Position = UDim2.new(0, 10, 0, 7)
-stealLbl.BackgroundTransparency = 1
-stealLbl.Text = "Steal Progress"
-stealLbl.TextColor3 = Color3.fromRGB(220,220,220)
-stealLbl.Font = Enum.Font.GothamBold
-stealLbl.TextSize = 9
+stealLbl.Size = UDim2.new(0, 95, 0, 13); stealLbl.Position = UDim2.new(0, 10, 0, 7)
+stealLbl.BackgroundTransparency = 1; stealLbl.Text = "Steal Progress"
+stealLbl.TextColor3 = C.infoTxt; stealLbl.Font = Enum.Font.GothamBold; stealLbl.TextSize = 9
 stealLbl.TextXAlignment = Enum.TextXAlignment.Left
-
 local stealPctLbl = Instance.new("TextLabel", infoBar)
-stealPctLbl.Size = UDim2.new(0, 38, 0, 13)
-stealPctLbl.Position = UDim2.new(1, -42, 0, 7)
-stealPctLbl.BackgroundTransparency = 1
-stealPctLbl.Text = "0%"
-stealPctLbl.TextColor3 = Color3.fromRGB(255,255,255)
-stealPctLbl.Font = Enum.Font.GothamBlack
-stealPctLbl.TextSize = 10
+stealPctLbl.Size = UDim2.new(0, 38, 0, 13); stealPctLbl.Position = UDim2.new(1, -42, 0, 7)
+stealPctLbl.BackgroundTransparency = 1; stealPctLbl.Text = "0%"; stealPctLbl.TextColor3 = C.infoVal
+stealPctLbl.Font = Enum.Font.GothamBlack; stealPctLbl.TextSize = 10
 stealPctLbl.TextXAlignment = Enum.TextXAlignment.Right
-
 local pTrack = Instance.new("Frame", infoBar)
-pTrack.Size = UDim2.new(1, -18, 0, 4)
-pTrack.Position = UDim2.new(0, 9, 0, 24)
-pTrack.BackgroundColor3 = Color3.fromRGB(55,55,55)
-pTrack.BorderSizePixel = 0
-mkCorner(pTrack, 2)
-
+pTrack.Size = UDim2.new(1, -18, 0, 4); pTrack.Position = UDim2.new(0, 9, 0, 24)
+pTrack.BackgroundColor3 = C.infoBrd; pTrack.BorderSizePixel = 0; mkCorner(pTrack, 2)
 local progressFill = Instance.new("Frame", pTrack)
 progressFill.Size = UDim2.new(0, 0, 1, 0)
-progressFill.BackgroundColor3 = Color3.fromRGB(190,190,190)
-progressFill.BorderSizePixel = 0
-mkCorner(progressFill, 2)
-
-local fillGlow = Instance.new("UIStroke", progressFill)
-fillGlow.Color = Color3.fromRGB(255,255,255)
-fillGlow.Thickness = 1
-fillGlow.Transparency = 0.35
-
+progressFill.BackgroundColor3 = C.infoFill; progressFill.BorderSizePixel = 0; mkCorner(progressFill, 2)
 local function makeStatMini(xOff, w, icon)
 	local box = Instance.new("Frame", infoBar)
-	box.Size = UDim2.new(0, w, 0, 13)
-	box.Position = UDim2.new(0, xOff, 0, 36)
+	box.Size = UDim2.new(0, w, 0, 13); box.Position = UDim2.new(0, xOff, 0, 36)
 	box.BackgroundTransparency = 1
-
-	local iL = Instance.new("TextLabel", box)
-	iL.Size = UDim2.new(0, 25, 1, 0)
-	iL.BackgroundTransparency = 1
-	iL.Text = icon
-	iL.TextColor3 = Color3.fromRGB(170,170,170)
-	iL.Font = Enum.Font.GothamBold
-	iL.TextSize = 9
-
-	local vL = Instance.new("TextLabel", box)
-	vL.Size = UDim2.new(1, -25, 1, 0)
-	vL.Position = UDim2.new(0, 25, 0, 0)
-	vL.BackgroundTransparency = 1
-	vL.Text = "—"
-	vL.TextColor3 = Color3.fromRGB(255,255,255)
-	vL.Font = Enum.Font.GothamBlack
-	vL.TextSize = 9
-	vL.TextXAlignment = Enum.TextXAlignment.Left
-
+	local iL = Instance.new("TextLabel", box); iL.Size = UDim2.new(0, 25, 1, 0)
+	iL.BackgroundTransparency = 1; iL.Text = icon; iL.TextColor3 = C.infoTxt
+	iL.Font = Enum.Font.GothamBold; iL.TextSize = 9
+	local vL = Instance.new("TextLabel", box); vL.Size = UDim2.new(1, -25, 1, 0); vL.Position = UDim2.new(0, 25, 0, 0)
+	vL.BackgroundTransparency = 1; vL.Text = "â€”"; vL.TextColor3 = C.infoVal
+	vL.Font = Enum.Font.GothamBlack; vL.TextSize = 9; vL.TextXAlignment = Enum.TextXAlignment.Left
 	return vL
 end
-
 local fpsVal = makeStatMini(10, 55, "FPS")
 local pingVal = makeStatMini(68, 62, "PING")
-
 local radWrap = Instance.new("Frame", infoBar)
-radWrap.Size = UDim2.new(0, 68, 0, 13)
-radWrap.Position = UDim2.new(1, -72, 0, 36)
+radWrap.Size = UDim2.new(0, 68, 0, 13); radWrap.Position = UDim2.new(1, -72, 0, 36)
 radWrap.BackgroundTransparency = 1
-
 local radIco = Instance.new("TextLabel", radWrap)
-radIco.Size = UDim2.new(0, 26, 1, 0)
-radIco.BackgroundTransparency = 1
-radIco.Text = "RAD"
-radIco.TextColor3 = Color3.fromRGB(170,170,170)
-radIco.Font = Enum.Font.GothamBold
-radIco.TextSize = 9
-
+radIco.Size = UDim2.new(0, 26, 1, 0); radIco.BackgroundTransparency = 1
+radIco.Text = "RAD"; radIco.TextColor3 = C.infoTxt; radIco.Font = Enum.Font.GothamBold; radIco.TextSize = 9
 radTB = Instance.new("TextBox", radWrap)
-radTB.Size = UDim2.new(0, 40, 1, 0)
-radTB.Position = UDim2.new(0, 26, 0, 0)
-radTB.BackgroundTransparency = 1
-radTB.Text = tostring(Steal.StealRadius)
-radTB.TextColor3 = Color3.fromRGB(255,255,255)
-radTB.Font = Enum.Font.GothamBlack
-radTB.TextSize = 9
-radTB.ClearTextOnFocus = false
-radTB.ZIndex = 10
-
+radTB.Size = UDim2.new(0, 40, 1, 0); radTB.Position = UDim2.new(0, 26, 0, 0)
+radTB.BackgroundTransparency = 1; radTB.Text = tostring(Steal.StealRadius); radTB.TextColor3 = C.infoVal
+radTB.Font = Enum.Font.GothamBlack; radTB.TextSize = 9; radTB.ClearTextOnFocus = false; radTB.ZIndex = 10
 radTB.FocusLost:Connect(function()
 	local n = tonumber(radTB.Text)
-
 	if n and n >= 5 and n <= 300 then
 		Steal.StealRadius = math.floor(n)
-		Steal.cachedPrompts = {}
-		Steal.promptCacheTime = 0
+		Steal.cachedPrompts = {}; Steal.promptCacheTime = 0
 	end
-
 	radTB.Text = tostring(Steal.StealRadius)
-
-	if stealRadBox and not stealRadBox:IsFocused() then
-		stealRadBox.Text = tostring(Steal.StealRadius)
-	end
+	if stealRadBox and not stealRadBox:IsFocused() then stealRadBox.Text = tostring(Steal.StealRadius) end
 end)
 
 do
-	local lastT = tick()
-local fc = 0
-
-RunService.RenderStepped:Connect(function()
-	fc += 1
-
-	local now = tick()
-
-	if now - lastT >= 0.5 then
-		local fps = math.floor(fc / (now - lastT))
-
-		fc = 0
-		lastT = now
-
-		fpsVal.Text = tostring(fps)
-
-		-- Dark gray / glowing colors
-		if fps >= 55 then
-			fpsVal.TextColor3 = Color3.fromRGB(255,255,255)
-		elseif fps >= 30 then
-			fpsVal.TextColor3 = Color3.fromRGB(200,200,200)
-		else
-			fpsVal.TextColor3 = Color3.fromRGB(140,140,140)
+	local lastT = tick(); local fc = 0
+	RunService.RenderStepped:Connect(function()
+		fc = fc + 1; local now = tick()
+		if now - lastT >= 0.5 then
+			local fps = math.floor(fc / (now - lastT)); fc = 0; lastT = now
+			fpsVal.Text = tostring(fps)
+			fpsVal.TextColor3 = fps >= 55 and Color3.fromRGB(255, 100, 100) or fps >= 30 and Color3.fromRGB(200, 60, 60) or Color3.fromRGB(150, 30, 30)
 		end
-	end
-end)
-
-task.spawn(function()
-	while task.wait(1) do
-		pcall(function()
-			local ping = math.floor(
-				Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-			)
-
-			pingVal.Text = ping .. "ms"
-
-			-- Dark glow themed ping colors
-			if ping <= 80 then
-				pingVal.TextColor3 = Color3.fromRGB(255,255,255)
-			elseif ping <= 150 then
-				pingVal.TextColor3 = Color3.fromRGB(200,200,200)
-			else
-				pingVal.TextColor3 = Color3.fromRGB(140,140,140)
-			end
-		end)
-	end
-end)
-
-task.spawn(function()
-	while task.wait(0.5) do
-		pcall(function()
-			if not radTB:IsFocused() then
-				radTB.Text = tostring(Steal.StealRadius)
-			end
-
-			if stealRadBox and not stealRadBox:IsFocused() then
-				stealRadBox.Text = tostring(Steal.StealRadius)
-			end
-		end)
-	end
-end)
-
--- Optional smooth glow pulse
-task.spawn(function()
-	while task.wait(0.03) do
-		if glow then
-			glow.ImageTransparency =
-				0.45 + math.sin(tick() * 2) * 0.08
+	end)
+	task.spawn(function()
+		while task.wait(1) do
+			pcall(function()
+				local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
+				pingVal.Text = ping.."ms"
+				pingVal.TextColor3 = ping <= 80 and Color3.fromRGB(255, 100, 100) or ping <= 150 and Color3.fromRGB(200, 60, 60) or Color3.fromRGB(150, 30, 30)
+			end)
 		end
-	end
-end)
+	end)
+	task.spawn(function()
+		while task.wait(0.5) do
+			pcall(function()
+				if not radTB:IsFocused() then radTB.Text = tostring(Steal.StealRadius) end
+				if stealRadBox and not stealRadBox:IsFocused() then stealRadBox.Text = tostring(Steal.StealRadius) end
+			end)
+		end
+	end)
+end
 
--- STACK BUTTONS (mas rounded na)
+-- BUTTON STYLE
+local BTN_W = 120
+local BTN_H = 55
+
+-- STACK BUTTONS
 for i, def in ipairs(stackDefs) do
 	local btnFrame = Instance.new("Frame", gui)
 	btnFrame.Name = "StackBtn_"..def.key
 	btnFrame.Size = UDim2.new(0, BTN_W, 0, BTN_H)
 	btnFrame.Position = getDefaultStackPos(i)
-	btnFrame.BackgroundColor3 = C.stackBg; btnFrame.BorderSizePixel = 0
-	btnFrame.Active = true; btnFrame.ZIndex = 15
-	mkCorner(btnFrame, 10)  -- mas rounded
-	local bStroke = mkStroke(btnFrame, C.stackBrd, 1)
+
+	btnFrame.BackgroundColor3 = C.stackBg
+	btnFrame.BorderSizePixel = 0
+	btnFrame.Active = true
+	btnFrame.ZIndex = 15
+
+	-- MAS ROUNDED
+	mkCorner(btnFrame, 20)
+
+	-- OUTLINE
+	local bStroke = mkStroke(btnFrame, C.stackBrd, 2)
+
 	stackWrappers[def.key] = btnFrame
+
+	-- TEXT
 	local nl = Instance.new("TextLabel", btnFrame)
-	nl.Size = UDim2.new(1, -6, 1, -14); nl.Position = UDim2.new(0, 3, 0, 4)
-	nl.BackgroundTransparency = 1; nl.Text = def.label; nl.TextColor3 = C.stackTxt
-	nl.Font = Enum.Font.GothamBlack; nl.TextSize = 10; nl.TextWrapped = true
-	nl.TextXAlignment = Enum.TextXAlignment.Center; nl.ZIndex = 6
-	local dot = Instance.new("Frame", btnFrame)
-	dot.Size = UDim2.new(0, 6, 0, 6); dot.Position = UDim2.new(0.5, -3, 1, -10)
-	dot.BackgroundColor3 = C.stackDot; dot.BorderSizePixel = 0; mkCorner(dot, 3)
+	nl.Size = UDim2.new(1, -10, 1, -10)
+	nl.Position = UDim2.new(0, 5, 0, 5)
+
+	nl.BackgroundTransparency = 1
+	nl.Text = def.label
+	nl.TextColor3 = C.stackTxt
+
+	nl.Font = Enum.Font.GothamBlack
+	nl.TextSize = 14
+	nl.TextWrapped = true
+	nl.TextXAlignment = Enum.TextXAlignment.Center
+	nl.TextYAlignment = Enum.TextYAlignment.Center
+	nl.ZIndex = 6
+
 	local btnState = false
+
 	local function setOn(on)
 		btnState = on
-		TweenService:Create(btnFrame, TweenInfo.new(0.15), {BackgroundColor3 = on and C.stackActBg or C.stackBg}):Play()
-		TweenService:Create(bStroke, TweenInfo.new(0.15), {Color = on and C.stackActBrd or C.stackBrd}):Play()
-		TweenService:Create(nl, TweenInfo.new(0.15), {TextColor3 = on and C.stackActTxt or C.stackTxt}):Play()
-		TweenService:Create(dot, TweenInfo.new(0.15), {BackgroundColor3 = on and C.stackDotOn or C.stackDot}):Play()
+
+		TweenService:Create(btnFrame, TweenInfo.new(0.15), {
+			BackgroundColor3 = on and C.stackActBg or C.stackBg
+		}):Play()
+
+		TweenService:Create(bStroke, TweenInfo.new(0.15), {
+			Color = on and C.stackActBrd or C.stackBrd
+		}):Play()
+
+		TweenService:Create(nl, TweenInfo.new(0.15), {
+			TextColor3 = on and C.stackActTxt or C.stackTxt
+		}):Play()
 	end
-	stackBtnRefs[def.key] = {setOn = setOn}
+
+	stackBtnRefs[def.key] = {
+		setOn = setOn
+	}
+
+	-- HOVER EFFECT
 	btnFrame.MouseEnter:Connect(function()
 		if not btnState then
-			TweenService:Create(btnFrame,TweenInfo.new(0.1),{BackgroundColor3=Color3.fromRGB(40, 0, 0)}):Play()
+			TweenService:Create(btnFrame, TweenInfo.new(0.1), {
+				Size = UDim2.new(0, BTN_W + 4, 0, BTN_H + 4)
+			}):Play()
 		end
 	end)
+
 	btnFrame.MouseLeave:Connect(function()
-		TweenService:Create(btnFrame,TweenInfo.new(0.1),{BackgroundColor3=btnState and C.stackActBg or C.stackBg}):Play()
+		TweenService:Create(btnFrame, TweenInfo.new(0.1), {
+			Size = UDim2.new(0, BTN_W, 0, BTN_H)
+		}):Play()
 	end)
+
 	local function onTap()
+
 		if def.key == "tpDown" then
-			doTpDown(); return
+			doTpDown()
+			return
 		end
+
 		if def.key == "carrySpeed" then
-			State.speedToggled = not State.speedToggled; setOn(State.speedToggled); return
+			State.speedToggled = not State.speedToggled
+			setOn(State.speedToggled)
+			return
 		end
-		local ns = not btnState; setOn(ns)
+
+		local ns = not btnState
+		setOn(ns)
+
 		if def.key == "autoLeft" then
+
 			State.autoLeftEnabled = ns
-			if ns and State.batAimbotToggled then State.batAimbotToggled=false; stopBatAimbot(); if stackBtnRefs.aimbot then stackBtnRefs.aimbot.setOn(false) end end
-			if ns then startAutoLeft() else stopAutoLeft() end
-		elseif def.key == "autoRight" then
-			State.autoRightEnabled = ns
-			if ns and State.batAimbotToggled then State.batAimbotToggled=false; stopBatAimbot(); if stackBtnRefs.aimbot then stackBtnRefs.aimbot.setOn(false) end end
-			if ns then startAutoRight() else stopAutoRight() end
-		elseif def.key == "aimbot" then
-			State.batAimbotToggled = ns
+
+			if ns and State.batAimbotToggled then
+				State.batAimbotToggled = false
+				stopBatAimbot()
+
+				if stackBtnRefs.aimbot then
+					stackBtnRefs.aimbot.setOn(false)
+				end
+			end
+
 			if ns then
-				if State.autoLeftEnabled then State.autoLeftEnabled=false; stopAutoLeft(); if stackBtnRefs.autoLeft then stackBtnRefs.autoLeft.setOn(false) end end
-				if State.autoRightEnabled then State.autoRightEnabled=false; stopAutoRight(); if stackBtnRefs.autoRight then stackBtnRefs.autoRight.setOn(false) end end
+				startAutoLeft()
+			else
+				stopAutoLeft()
+			end
+
+		elseif def.key == "autoRight" then
+
+			State.autoRightEnabled = ns
+
+			if ns and State.batAimbotToggled then
+				State.batAimbotToggled = false
+				stopBatAimbot()
+
+				if stackBtnRefs.aimbot then
+					stackBtnRefs.aimbot.setOn(false)
+				end
+			end
+
+			if ns then
+				startAutoRight()
+			else
+				stopAutoRight()
+			end
+
+		elseif def.key == "aimbot" then
+
+			State.batAimbotToggled = ns
+
+			if ns then
+
+				if State.autoLeftEnabled then
+					State.autoLeftEnabled = false
+					stopAutoLeft()
+
+					if stackBtnRefs.autoLeft then
+						stackBtnRefs.autoLeft.setOn(false)
+					end
+				end
+
+				if State.autoRightEnabled then
+					State.autoRightEnabled = false
+					stopAutoRight()
+
+					if stackBtnRefs.autoRight then
+						stackBtnRefs.autoRight.setOn(false)
+					end
+				end
+
 				pcall(startBatAimbot)
+
 			else
 				stopBatAimbot()
 			end
+
 		elseif def.key == "lagger" then
+
 			State.laggerEnabled = ns
+
 			if ns then
 				State._prevCarry = State.carrySpeed
 				State._prevSpeed = State.speedToggled
+
 				State.speedToggled = false
-				if stackBtnRefs.carrySpeed then stackBtnRefs.carrySpeed.setOn(false) end
-				if carryBox then carryBox.Text = tostring(State.laggerSpeed) end
+
+				if stackBtnRefs.carrySpeed then
+					stackBtnRefs.carrySpeed.setOn(false)
+				end
+
+				if carryBox then
+					carryBox.Text = tostring(State.laggerSpeed)
+				end
+
 			else
+
 				State.carrySpeed = State._prevCarry or 30
 				State.speedToggled = State._prevSpeed or false
-				if carryBox then carryBox.Text = tostring(State.carrySpeed) end
-				if stackBtnRefs.carrySpeed then stackBtnRefs.carrySpeed.setOn(State.speedToggled) end
+
+				if carryBox then
+					carryBox.Text = tostring(State.carrySpeed)
+				end
+
+				if stackBtnRefs.carrySpeed then
+					stackBtnRefs.carrySpeed.setOn(State.speedToggled)
+				end
 			end
+
 		elseif def.key == "drop" then
-			if ns then runDropBrainrot() else stopDropBrainrot() end
+
+			if ns then
+				runDropBrainrot()
+			else
+				stopDropBrainrot()
+			end
 		end
 	end
+
 	makeStackDraggable(btnFrame, onTap, def.key)
 end
-
 -- ============================================================
 -- REMAINING FUNCTIONS (unchanged, but FPS Boost and others kept)
 -- ============================================================
