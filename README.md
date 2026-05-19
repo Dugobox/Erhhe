@@ -2096,37 +2096,39 @@ end)
 local UIS = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 
-local LP = Players.LocalPlayer
+local player = Players.LocalPlayer
 local holding = false
 
-State = State or {}
-State.infJumpEnabled = true
-
-UIS.InputBegan:Connect(function(input, gameProcessed)
-	if gameProcessed then return end
+UIS.InputBegan:Connect(function(input, gp)
+	if gp then return end
 	
-	if input.KeyCode == Enum.KeyCode.Space then
+	if input.UserInputType == Enum.UserInputType.Keyboard
+	and input.KeyCode == Enum.KeyCode.Space then
+		
 		holding = true
 		
 		while holding do
-			if State.infJumpEnabled then
-				local c = LP.Character
+			local char = player.Character
+			if char then
+				local root = char:FindFirstChild("HumanoidRootPart")
 				
-				if c then
-					local root = c:FindFirstChild("HumanoidRootPart")
-					
-					if root then
-						root.Velocity = Vector3.new(
-							root.Velocity.X,
-							55,
-							root.Velocity.Z
-						)
-					end
+				if root then
+					root.AssemblyLinearVelocity = Vector3.new(
+						root.AssemblyLinearVelocity.X,
+						60,
+						root.AssemblyLinearVelocity.Z
+					)
 				end
 			end
 			
-			task.wait(0.1)
+			task.wait(0.05)
 		end
+	end
+end)
+
+UIS.InputEnded:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Space then
+		holding = false
 	end
 end)
 
