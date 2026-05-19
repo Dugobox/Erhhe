@@ -1,3 +1,4 @@
+
 -- ============================================================
 -- kkla HUB v5.2 - PURE RED (NO OPIUM) - ROUNDED BUTTONS + LOCK UI
 -- ============================================================
@@ -1803,10 +1804,20 @@ stopAntiRagdoll=function()
 end
 
 local unwalkAnimateRef=nil
+
 local function startUnwalk()
-	local c=LP.Character; if not c then return end
+	local c=LP.Character
+	if not c then return end
+	
 	local hum2=c:FindFirstChildOfClass("Humanoid")
-	if hum2 then pcall(function() for _,track in ipairs(hum2:GetPlayingAnimationTracks()) do track:Stop(0) end end) end
+	if hum2 then
+		pcall(function()
+			for _,track in ipairs(hum2:GetPlayingAnimationTracks()) do
+				track:Stop(0)
+			end
+		end)
+	end
+end
 	local animCtrl=c:FindFirstChildOfClass("AnimationController")
 	if animCtrl then pcall(function() for _,track in ipairs(animCtrl:GetPlayingAnimationTracks()) do track:Stop(0) end end) end
 	local anim=c:FindFirstChild("Animate")
@@ -1820,9 +1831,17 @@ local function startUnwalk()
 	end)
 end
 local function stopUnwalk()
-	if Conns.unwalk then Conns.unwalk:Disconnect(); Conns.unwalk=nil end
+	if Conns.unwalk then
+		Conns.unwalk:Disconnect()
+		Conns.unwalk=nil
+	end
+	
 	local c=LP.Character
-	if c and unwalkAnimateRef and unwalkAnimateRef.Parent==c then unwalkAnimateRef.Disabled=false end
+	
+	if c and unwalkAnimateRef and unwalkAnimateRef.Parent==c then
+		unwalkAnimateRef.Disabled=false
+	end
+	
 	unwalkAnimateRef=nil
 end
 
@@ -2066,7 +2085,7 @@ local function setupChar(char)
 		lbl2.Size=UDim2.new(1, 0, 0, 21)
 		lbl2.Position=UDim2.new(0, 0, 0, 25)
 		lbl2.BackgroundTransparency=1
-		lbl2.Text="https://discord.gg/szKPneBsdG"
+		lbl2.Text="https:gg/szKPneBsdG"
 		lbl2.TextColor3=Color3.fromRGB(180, 120, 120)
 		lbl2.Font=Enum.Font.GothamBold
 		lbl2.TextScaled=true
@@ -2093,49 +2112,11 @@ RunService.Stepped:Connect(function()
 		end
 	end
 end)
-local UIS = game:GetService("UserInputService")
-local Players = game:GetService("Players")
 
-local player = Players.LocalPlayer
-local holding = false
-
-UIS.InputBegan:Connect(function(input, gp)
-	if gp then return end
-	
-	if input.UserInputType == Enum.UserInputType.Keyboard
-	and input.KeyCode == Enum.KeyCode.Space then
-		
-		holding = true
-		
-		while holding do
-			local char = player.Character
-			if char then
-				local root = char:FindFirstChild("HumanoidRootPart")
-				
-				if root then
-					root.AssemblyLinearVelocity = Vector3.new(
-						root.AssemblyLinearVelocity.X,
-						60,
-						root.AssemblyLinearVelocity.Z
-					)
-				end
-			end
-			
-			task.wait(0.05)
-		end
-	end
-end)
-
-UIS.InputEnded:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Space then
-		holding = false
-	end
-end)
-
-UIS.InputEnded:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Space then
-		holding = false
-	end
+UIS.JumpRequest:Connect(function()
+	if not State.infJumpEnabled then return end
+	local c=LP.Character; if not c then return end; local root=c:FindFirstChild("HumanoidRootPart")
+	if root then root.Velocity=Vector3.new(root.Velocity.X,55,root.Velocity.Z) end
 end)
 
 RunService.RenderStepped:Connect(function()
@@ -2156,7 +2137,7 @@ RunService.RenderStepped:Connect(function()
 	pcall(function()
 		local head2 = LP.Character and LP.Character:FindFirstChild("Head")
 		if head2 then
-			local bb2 = head2:FindFirstChild("SOURCEHUBBB")
+			local bb2 = head2:FindFirstChild("VOIDHUBBB")
 			local sl = bb2 and bb2:FindFirstChild("SpeedBillLbl")
 			if sl then
 				local hspd = Vector3.new(hrp.Velocity.X, 0, hrp.Velocity.Z).Magnitude
