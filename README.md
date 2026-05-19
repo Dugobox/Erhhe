@@ -1229,8 +1229,8 @@ do
 end
 
 -- BUTTON STYLE
-local BTN_W = 120
-local BTN_H = 55
+local BTN_W = 100
+local BTN_H = 45
 
 -- STACK BUTTONS
 for i, def in ipairs(stackDefs) do
@@ -1245,7 +1245,7 @@ for i, def in ipairs(stackDefs) do
 	btnFrame.ZIndex = 15
 
 	-- MAS ROUNDED
-	mkCorner(btnFrame, 20)
+	mkCorner(btnFrame, 16)
 
 	-- OUTLINE
 	local bStroke = mkStroke(btnFrame, C.stackBrd, 2)
